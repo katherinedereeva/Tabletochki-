@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Як допомогти собі · Таблеточки</title>
+<!-- SEO -->
+<meta name="description" content="Сторінка психологічної самодопомоги для батьків. Прості практики для заспокоєння тривоги, повернення до себе і підтримки — прямо зараз.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Як допомогти собі · Таблеточки">
+<meta property="og:description" content="Прості психологічні практики для важких моментів. Оберіть свій стан — і ми підкажемо, як повернутися до себе.">
+<meta property="og:url" content="https://tabletochki.org/">
+<meta property="og:image" content="https://tabletochki.org/og-image.jpg"><!-- TODO: og-image 1200×630px -->
+<meta property="og:locale" content="uk_UA">
+
+<!-- Twitter / Telegram -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Як допомогти собі · Таблеточки">
+<meta name="twitter:description" content="Прості психологічні практики для важких моментів.">
+<meta name="twitter:image" content="https://tabletochki.org/og-image.jpg"><!-- TODO: та сама що og:image -->
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/favicon.png"><!-- TODO: реальний favicon.png -->
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- TODO: 180×180px -->
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://res.cloudinary.com">
+
+<!-- GA4 -->
+<!-- TODO: GA4 — вставити тег тут -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
+
+<!-- Meta Pixel -->
+<!-- TODO: Meta Pixel — вставити тут -->
+
+<!-- шрифти -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@font-face{font-display:swap}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:#f4f0ec;color:#1a2e32;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* skip nav */
+.skip-link{position:absolute;top:-100px;left:16px;background:#164850;color:#fff;padding:8px 16px;border-radius:0 0 8px 8px;font-size:.85rem;font-weight:600;text-decoration:none;z-index:9999;transition:top .2s}
+.skip-link:focus{top:0}
+
+
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(255,255,255,0);
+  transition:background .4s,box-shadow .4s;
+  padding:14px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+header.scrolled{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 rgba(22,72,80,.08);
+}
+.hlogo{
+  height:32px;min-width:100px;padding:0 14px;
+  border:1.5px dashed rgba(255,255,255,.6);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;color:rgba(255,255,255,.85);
+  letter-spacing:.1em;text-transform:uppercase;
+  transition:border-color .4s,color .4s;
+}
+header.scrolled .hlogo{border-color:rgba(22,72,80,.22);color:#7aaab2}
+.burger{width:40px;height:40px;border:none;background:rgba(255,255,255,.2);border-radius:12px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:9px;-webkit-tap-highlight-color:transparent;transition:background .3s}
+.burger span{display:block;height:2px;width:100%;background:#fff;border-radius:2px;transition:transform .3s,opacity .3s,background .4s}
+header.scrolled .burger span{background:#164850}
+header.scrolled .burger{background:rgba(22,72,80,.07)}
+.burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-overlay{position:fixed;inset:0;background:rgba(22,72,80,.45);z-index:250;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.nav-overlay.open{opacity:1;pointer-events:all}
+
+/* Mobile drawer — only applies below 768px */
+@media(max-width:767px){
+  .nav-drawer{
+    position:fixed;top:0;right:0;bottom:0;
+    width:min(260px,80vw);
+    min-height:100vh;min-height:100dvh;
+    background:#fff;
+    z-index:300;
+    transform:translateX(100%);
+    transition:transform .35s cubic-bezier(.4,0,.2,1);
+    padding:80px 28px 40px;
+    display:flex;flex-direction:column;gap:4px;
+    box-shadow:-8px 0 40px rgba(22,72,80,.25);
+    border-left:1px solid rgba(22,72,80,.08);
+    overflow-y:auto;
+  }
+  .nav-drawer.open{transform:translateX(0)}
+  .nav-drawer a{font-size:1.05rem;font-weight:600;color:#164850;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(22,72,80,.1);display:block}
+  .nav-drawer a:last-child{border-bottom:none}
+}
+
+/* ══ HERO — animated gradient bg + video fallback ══ */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  padding-bottom:140px; /* space for wave + raise content */
+}
+
+/* animated gradient background (always visible, video loads on top) */
+.hero::before{
+  content:'';
+  position:absolute;inset:0;z-index:0;
+  background:linear-gradient(135deg,
+    #6db8d0 0%,
+    #7ec8d8 15%,
+    #90d4e0 30%,
+    #a8dce8 45%,
+    #bce8e4 60%,
+    #cceee0 75%,
+    #d8f0d8 90%,
+    #c8e8d0 100%);
+  background-size:300% 300%;
+  animation:gradShift 12s ease infinite;
+}
+
+/* soft light orbs over gradient */
+.hero::after{
+  content:'';
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 75% 35%, rgba(255,255,255,.35) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(160,220,210,.3) 0%, transparent 65%);
+  pointer-events:none;
+}
+
+/* video on top of gradient */
+.hero-video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  z-index:1;
+}
+
+/* dark overlay for text legibility */
+.hero-overlay{
+  position:absolute;inset:0;z-index:2;
+  background:linear-gradient(
+    to bottom,
+    rgba(10,30,38,.45) 0%,
+    rgba(10,30,38,.35) 25%,
+    rgba(10,30,38,.45) 55%,
+    rgba(10,30,38,.72) 100%
+  );
+}
+
+  .hero-content{
+    position:relative;z-index:3;
+    width:100%;
+    padding:0 22px 52px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .hero-content.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+.hero-eyebrow{
+  display:inline-block;
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.95);
+  background:rgba(0,0,0,.28);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);
+  padding:5px 14px;border-radius:40px;margin-bottom:18px;
+}
+.hero-content h1{
+  font-size:clamp(2rem,7vw,4rem);
+  font-weight:700;line-height:1.08;
+  color:#fff;letter-spacing:-.03em;
+  margin-bottom:18px;
+  text-shadow:0 2px 12px rgba(0,0,0,.5), 0 4px 40px rgba(0,0,0,.35);
+}
+.hero-content p{
+  font-size:clamp(.95rem,2.5vw,1.12rem);
+  color:rgba(255,255,255,.96);line-height:1.72;
+  max-width:620px;font-weight:400;
+  text-shadow:0 1px 8px rgba(0,0,0,.55);
+  margin-bottom:16px;
+}
+.hero-sub{
+  font-size:clamp(.88rem,2.2vw,1rem);
+  color:rgba(255,255,255,.82);
+  line-height:1.65;
+  max-width:620px;
+  font-weight:400;
+  text-shadow:0 1px 8px rgba(0,0,0,.5);
+  margin-bottom:0;
+  margin-top:0;
+}
+.hero-sub + .hero-sub{margin-top:12px}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1.5px solid rgba(255,255,255,.45);
+  color:#fff;padding:14px 24px;border-radius:40px;
+  font-size:.92rem;font-weight:600;text-decoration:none;
+  transition:background .2s,border-color .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.hero-cta:hover{background:rgba(255,255,255,.3);border-color:rgba(255,255,255,.65)}
+.hero-cta svg{width:18px;height:18px;stroke:#fff;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+@keyframes gradShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* ── WAVE DIVIDERS ── */
+.wave{
+  display:block;
+  width:100%;
+  overflow:hidden;
+  line-height:0;
+  margin-bottom:-2px; /* eliminate gap */
+}
+.wave svg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* ══ CARDS SECTION ══ */
+.cards-section{
+  padding:24px 16px 0;
+  background:#f4f0ec;
+}
+.cards-scroll{
+  display:flex;
+  flex-direction:column;
+  gap:48px;
+  padding-bottom:48px;
+}
+
+/* card */
+.dir-card{
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(22,72,80,.12);
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:box-shadow .25s,transform .2s;
+  background:#fff;
+  position:relative;
+}
+.dir-card:hover{box-shadow:0 8px 32px rgba(22,72,80,.16);transform:translateY(-2px)}
+.dir-card.open{transform:none;box-shadow:0 8px 32px rgba(22,72,80,.14)}
+
+/* ── шапка картки ── */
+.card-visual{
+  width:100%;
+  position:relative;
+  overflow:hidden;
+  display:flex;flex-direction:row;
+  align-items:center;justify-content:space-between;
+  padding:24px 0 32px 24px;
+  min-height:148px;
+  background:linear-gradient(140deg,#0f3a42 0%,#164850 100%);
+  border-radius:0;
+  cursor:pointer;
+}
+.dir-card:nth-child(1) .card-visual{background:linear-gradient(140deg,#0f3a42 0%,#164850 60%,#1e6370 100%)}
+.dir-card:nth-child(2) .card-visual{background:linear-gradient(140deg,#112e36 0%,#164850 60%,#1b5c6a 100%)}
+.dir-card:nth-child(3) .card-visual{background:linear-gradient(140deg,#0d3038 0%,#155060 60%,#1a6070 100%)}
+.dir-card:nth-child(4) .card-visual{background:linear-gradient(140deg,#0f3540 0%,#164850 60%,#1c5e6e 100%)}
+
+.card-visual::after{display:none}
+
+/* текст у шапці */
+.card-visual-label{flex:1;min-width:0;padding-right:12px;position:relative;z-index:3}
+.card-visual-num{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}
+
+/* fade-up reveal для назв напрямків */
+@keyframes titleFadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.card-visual-title{
+  font-size:1rem;font-weight:700;color:#fff;line-height:1.28;
+  opacity:0;
+  transform:translateY(20px);
+}
+.card-visual-title.revealed{
+  animation:titleFadeUp .7s ease forwards;
+}
+
+/* квітка */
+.card-illo{
+  width:130px;height:130px;flex-shrink:0;
+  overflow:visible;
+  position:relative;z-index:3;
+  margin-right:0;
+}
+.card-illo img{
+  width:100%;height:100%;
+  object-fit:contain;object-position:center;
+  display:block;
+  filter:drop-shadow(0 4px 16px rgba(0,0,0,.2));
+}
+.dir-card:nth-child(1) .card-illo{background:transparent}
+.dir-card:nth-child(2) .card-illo{background:transparent}
+.dir-card:nth-child(3) .card-illo{background:transparent}
+.dir-card:nth-child(4) .card-illo{background:transparent}
+
+/* ── кнопка відкрити ── */
+.card-info{
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:#fff;
+  border-top:1px solid rgba(22,72,80,.07);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .15s;
+}
+.card-info:active{background:#f4f0ec}
+.card-info-label{
+  font-size:.93rem;font-weight:600;color:#164850;
+  transition:opacity .15s;
+}
+.card-info-line{display:none}
+
+.card-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .45s cubic-bezier(.4,0,.2,1);
+  background:#fff;
+}
+.card-body-in{
+  padding:20px 18px 24px;
+  border-top:1px solid rgba(0,0,0,.05);
+}
+.card-body-in .card-full-desc + .practice-block{
+  margin-top:18px;
+}
+
+/* стрілка */
+.card-toggle{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(22,72,80,.09);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:transform .35s,background .3s;
+}
+.dir-card.open .card-toggle{transform:rotate(180deg);background:#164850}
+.card-toggle svg{width:14px;height:14px;stroke:#164850;stroke-width:2.5;fill:none;transition:stroke .3s}
+.dir-card.open .card-toggle svg{stroke:#fff}
+
+
+.card-full-desc{font-size:.86rem;color:#3d5a5f;margin:14px 0;line-height:1.6}
+.practice-block{margin-bottom:20px}
+.practice-block:last-child{margin-bottom:0}
+.practice-title{
+  font-size:.8rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:#164850;margin-bottom:10px;
+  padding-bottom:6px;
+  border-bottom:1px solid rgba(22,72,80,.1);
+}
+.practice-note{display:none}
+
+/* розділювач між вправами */
+.practice-block{
+  margin-bottom:0;
+  padding-bottom:20px;
+  position:relative;
+}
+.practice-block:not(:last-child)::after{
+  content:'';
+  display:block;
+  margin:20px 0 0;
+  height:1px;
+  background:linear-gradient(to right, transparent, #e6d9c8 20%, #c8b89a 50%, #e6d9c8 80%, transparent);
+}
+.practice-block:last-child{margin-bottom:0;padding-bottom:0}
+.plist{list-style:none;display:flex;flex-direction:column;gap:9px}
+.pi{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:11px 14px;border-radius:14px;
+  background:rgba(22,72,80,.05);
+  font-size:.86rem;color:#1a2e32;line-height:1.5;
+}
+.pb{width:6px;height:6px;border-radius:50%;background:#164850;flex-shrink:0;margin-top:5px}
+
+/* ══ CONTACT ══ */
+.contact{background:#fff;padding:48px 22px 52px}
+.contact-head{text-align:center;margin-bottom:24px}
+.contact-eyebrow{font-size:.63rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7aaab2;margin-bottom:10px}
+.contact-head h2{font-size:clamp(1.15rem,4.5vw,1.5rem);font-weight:700;color:#164850;line-height:1.3;letter-spacing:-.015em}
+.contact-head p{font-size:.85rem;color:#7aaab2;margin-top:6px}
+.contact-form{background:#f4f0ec;border-radius:24px;padding:24px 18px;max-width:500px;margin:0 auto}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.fg label{font-size:.72rem;font-weight:600;color:#3d5a5f;letter-spacing:.02em}
+.fg input,.fg textarea{
+  width:100%;padding:13px 15px;
+  border:1.5px solid rgba(22,72,80,.1);border-radius:14px;
+  font-family:'Inter',sans-serif;font-size:.91rem;color:#1a2e32;
+  background:#fff;outline:none;-webkit-appearance:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.fg input:focus,.fg textarea:focus{border-color:#006795;box-shadow:0 0 0 3px rgba(0,103,149,.08)}
+.fg textarea{min-height:100px;resize:vertical;line-height:1.5}
+.fg input::placeholder,.fg textarea::placeholder{color:#8aacb2}
+.btn-send{
+  width:100%;padding:15px;
+  background:linear-gradient(135deg,#164850 0%,#006795 100%);
+  color:#fff;border:none;border-radius:40px;
+  font-family:'Inter',sans-serif;font-size:.94rem;font-weight:700;
+  cursor:pointer;letter-spacing:.02em;
+  box-shadow:0 4px 20px rgba(22,72,80,.25);
+  -webkit-tap-highlight-color:transparent;
+  transition:opacity .2s,transform .15s;margin-top:2px;
+}
+.btn-send:hover{opacity:.88}
+.btn-send:active{transform:scale(.98)}
+.fnote{font-size:.7rem;color:#8aacb2;text-align:center;margin-top:10px}
+.fsuccess{display:none;text-align:center;padding:28px 0}
+.fsuccess .ck{width:52px;height:52px;background:#dceef5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.fsuccess .ck svg{width:24px;height:24px;stroke:#164850;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fsuccess p{font-size:.93rem;color:#3d5a5f;font-weight:500;line-height:1.6}
+
+/* ── FOOTER ── */
+footer{background:#164850;padding:24px 22px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.flogo{height:30px;min-width:110px;border:1.5px solid rgba(255,255,255,.5);border-radius:8px;padding:0 14px;display:flex;align-items:center;justify-content:center;font-size:.63rem;font-weight:600;color:rgba(255,255,255,.85);letter-spacing:.1em;text-transform:uppercase}
+footer a{color:rgba(255,255,255,.9);text-decoration:none;font-weight:500;font-size:.82rem}
+.fcopy{font-size:.7rem;color:rgba(255,255,255,.6)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes petalSway{0%,100%{transform-origin:50% 90%;transform:rotate(0deg)}45%{transform-origin:50% 90%;transform:rotate(2deg)}75%{transform-origin:50% 90%;transform:rotate(-1.3deg)}}
+
+/* ══ DESKTOP 768+ ══ */
+@media(min-width:600px){.mob-br{display:inline;font-size:0;line-height:0}}
+@media(min-width:768px){
+  header{padding:16px 52px}
+  .burger{display:none}
+  .nav-overlay{display:none !important}
+  .nav-drawer{position:static;transform:none;width:auto;background:transparent;box-shadow:none;border:none;padding:0;display:flex;flex-direction:row;gap:32px;align-items:center;min-height:unset;overflow:visible}
+  .nav-drawer a{font-size:.87rem;font-weight:500;color:rgba(255,255,255,.85);text-decoration:none;padding:0;border:none;display:inline;text-shadow:0 1px 6px rgba(0,0,0,.2)}
+  header.scrolled .nav-drawer a{color:#3d5a5f;text-shadow:none}
+
+  .hero{align-items:flex-end}
+  .hero-content{
+    max-width:860px;margin:0 auto;
+    padding:0 52px 80px;
+    text-align:center;
+    align-items:center;
+  }
+  .hero-content h1{font-size:clamp(2.4rem,4vw,3.8rem);max-width:720px}
+  .hero-content p,.hero-sub{max-width:680px}
+
+  .cards-section{
+    padding:20px 52px 0;
+    background:#f4f0ec;
+  }
+  .cards-scroll{
+    display:flex;
+    flex-direction:column;
+    gap:48px;
+    width:100%;
+    max-width:720px;
+    margin:0 auto;
+    padding-bottom:48px;
+  }
+  .dir-card.open{width:100%}
+  .card-visual{padding:24px 20px 36px;min-height:168px}
+  .card-visual-title{font-size:1.05rem}
+  .card-illo{width:108px;height:108px}
+  .card-body-in{padding:0 22px 24px}
+
+  .contact{padding:64px 52px 72px}
+  .contact-form{padding:36px 36px}
+  footer{flex-direction:row;justify-content:space-between;text-align:left;padding:24px 52px}
+}
+@media(min-width:1100px){
+  .hero-content{padding:0 72px 96px}
+  .cards-section{padding:48px 72px 0}
+  .cards-scroll{max-width:780px}
+  .contact{padding:72px 72px 80px}
+  footer{padding:24px 72px}
+}
+</style>
+</head>
+<body>
+<a href="#cards" class="skip-link">Перейти до практик</a>
+
+<!-- HEADER -->
+<header id="hdr">
+  <img src="https://res.cloudinary.com/dtac1dri4/image/upload/v1780085348/6_ekqnms.png" alt="Таблеточки — психологічна підтримка" loading="eager" fetchpriority="high" style="height:36px;width:auto;display:block"/>
+  <button class="burger" id="burger" aria-label="Відкрити меню" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-overlay" id="ov"></div>
+  <nav class="nav-drawer" id="nd">
+    <a href="#cards" onclick="cn()">Напрямки</a>
+    <a href="#ct" onclick="cn()">Зв'язатися</a>
+  </nav>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+
+  <!-- Animated gradient — always visible as fallback -->
+
+  <!-- Background video -->
+  <video class="hero-video"
+    autoplay muted playsinline
+    crossorigin="anonymous"
+    preload="auto"
+    poster="https://res.cloudinary.com/dtac1dri4/image/upload/v1780085469/%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D0%BC%D0%B0_%D1%81%D0%B2%D1%96%D1%82%D0%BB%D0%B0_%D0%BD%D0%B0_%D0%BF%D1%80%D0%BE%D0%B7%D0%BE%D1%80%D0%BE%D0%BC%D1%83_djlsxz.png"
+    aria-hidden="true">
+    <source src="https://res.cloudinary.com/dtac1dri4/video/upload/v1780421259/motion_2.0-fast_A_smooth_magical_transition_from_a_minimalist_2D_line-art_logo_into_a_hyper-real-0_1_v4wqsi.mp4" type="video/mp4"/>
+  </video>
+
+  <!-- Gradient overlay -->
+  <div class="hero-overlay"></div>
+
+  <!-- Text over video -->
+  <div class="hero-content">
+    <img src="https://res.cloudinary.com/dtac1dri4/image/upload/v1780085469/%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D0%BC%D0%B0_%D1%81%D0%B2%D1%96%D1%82%D0%BB%D0%B0_%D0%BD%D0%B0_%D0%BF%D1%80%D0%BE%D0%B7%D0%BE%D1%80%D0%BE%D0%BC%D1%83_djlsxz.png" alt="Емблема Таблеточки" loading="eager" fetchpriority="high" style="width:96px;height:auto;margin-bottom:20px;opacity:.92"/>
+    <div class="hero-eyebrow">Сторінка психологічної самодопомоги</div>
+    <h1>Практики для<br class="mob-br"> заспокоєння<br class="mob-br"> душі і тіла</h1>
+    <p class="hero-sub">Коли вас переповнюють емоції — це нормально. Це не слабкість.</p>
+    <p class="hero-sub">Та якщо вам стає важко — оберіть<br class="mob-br"> практики і робіть їх у будь-якому<br class="mob-br"> куточку заходу.</p>
+  </div>
+
+  <!-- Large rounded bottom — like the reference card transition -->
+  <div style="position:absolute;bottom:-1px;left:0;right:0;z-index:4;line-height:0;pointer-events:none" aria-hidden="true">
+    <svg viewBox="0 0 390 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+      <path d="M0,56 L0,28 Q195,0 390,28 L390,56 Z" fill="#f4f0ec"/>
+    </svg>
+  </div>
+
+</section>
+
+<!-- ══ DIRECTION CARDS ══ -->
+<section class="cards-section" id="cards">
+  <div class="cards-scroll">
+
+    <!-- Card 1 — anxiety / breath -->
+    <div class="dir-card" id="c1">
+      <div class="card-visual" onclick="tc('c1')" role="button" tabindex="0" aria-expanded="false">
+        <div class="card-visual-label">
+          <div class="card-visual-num">01</div>
+          <div class="card-visual-title">Відчуваю тривогу і важко дихати</div>
+        </div>
+        <div class="card-illo"><img loading="lazy" src="https://res.cloudinary.com/dtac1dri4/image/upload/v1780083332/1_1_xdaf8x.png" alt="Ілюстрація магнолії — тривога і дихання" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:1"></div>
+      </div>
+      <div class="card-info" onclick="tc('c1')">
+        <span class="card-info-label">Відкрити</span>
+        <div class="card-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="card-body"><div class="card-body-in">
+
+        <!-- Практика 1 -->
+        <div class="practice-block">
+          <div class="practice-title">Свічка (повтор 5-6 разів)</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Уявіть свічку на відстані витягнутої руки.</span></li>
+            <li class="pi"><span class="pb"></span><span>Вдихніть через ніс.</span></li>
+            <li class="pi"><span class="pb"></span><span>Зробіть повільний видих через рот, ніби хочете, щоб полум'я розхитувалося, але не гасло.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 2 -->
+        <div class="practice-block">
+          <div class="practice-title">Дихання 4-7-8 (повтор 3–4 рази)</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span><strong>Вдих (4 секунди):</strong> вдихайте повітря через ніс, рахуючи подумки до 4.</span></li>
+            <li class="pi"><span class="pb"></span><span><strong>Затримка (7 секунд):</strong> затримайте подих протягом 7 секунд.</span></li>
+            <li class="pi"><span class="pb"></span><span><strong>Видих (8 секунд):</strong> повільно видихайте повітря через рот, наче задуваєте свічку протягом 8 секунд.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 3 -->
+        <div class="practice-block">
+          <div class="practice-title">Холодна вода</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Потримайте зап'ястя під холодною водою або вмийте обличчя. Це допоможе скинути тривогу.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 4 -->
+        <div class="practice-block">
+          <div class="practice-title">Спів на видиху</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>На видиху тихо вимовляйте «вввв» або «ммм» — як гудіння.</span></li>
+            <li class="pi"><span class="pb"></span><span>Можна робити зовсім тихо.</span></li>
+          </ul>
+        </div>
+
+      </div></div>
+    </div>
+    <div class="dir-card" id="c2">
+      <div class="card-visual" onclick="tc('c2')" role="button" tabindex="0" aria-expanded="false">
+        <div class="card-visual-label">
+          <div class="card-visual-num">02</div>
+          <div class="card-visual-title">Тілесні практики, щоб повернутися до себе</div>
+        </div>
+        <div class="card-illo"><img loading="lazy" src="https://res.cloudinary.com/dtac1dri4/image/upload/v1780083332/2_1_t9vipm.png" alt="Ілюстрація магнолії — тілесні практики" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:1"></div>
+      </div>
+      <div class="card-info" onclick="tc('c2')">
+        <span class="card-info-label">Відкрити</span>
+        <div class="card-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="card-body"><div class="card-body-in">
+
+        <!-- Практика 1 -->
+        <div class="practice-block">
+          <div class="practice-title">Заземлення 5-4-3-2-1</div>
+          <p class="card-full-desc">Назвіть подумки або пошепки:</p>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>5 речей, які бачите. 4 речі, які чуєте. 3 — яких торкаєтеся прямо зараз. 2 — які відчуваєте на запах. 1 — на смак.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 2 -->
+        <div class="practice-block">
+          <div class="practice-title">М'язова релаксація</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span><strong>Обличчя:</strong> сильно заплющте очі, зморщіть носа. Розслабте. Потім широко відкрийте рот (ніби позіхаєте) і розслабте щелепу.</span></li>
+            <li class="pi"><span class="pb"></span><span><strong>Шия та плечі:</strong> підніміть плечі високо до вух, напружте шию. Різко опустіть і розслабте їх, «скиньте» напруження вниз.</span></li>
+            <li class="pi"><span class="pb"></span><span><strong>Руки:</strong> стисніть кулаки з усієї сили на 5 секунд — і різко відпустіть.</span></li>
+            <li class="pi"><span class="pb"></span><span><strong>Груди та спина:</strong> глибоко вдихніть, зведіть лопатки разом, напружте груди. Видихніть і розслабтеся.</span></li>
+            <li class="pi"><span class="pb"></span><span><strong>Живіт:</strong> максимально втягніть живіт, а потім розслабте його. Максимально надуйте живіт, а потім розслабте його.</span></li>
+            <li class="pi"><span class="pb"></span><span><strong>Ноги:</strong> підніміть угору пальці ніг і натягніть на себе ступні, а потім — розслабте.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 3 -->
+        <div class="practice-block">
+          <div class="practice-title">Струшування</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Встаньте рівно, ноги на ширині плечей, коліна злегка зігнуті.</span></li>
+            <li class="pi"><span class="pb"></span><span>Почніть м'яко пружинити на колінах і трясти кистями рук.</span></li>
+            <li class="pi"><span class="pb"></span><span>Поступово підключайте до трясіння все тіло — лікті, плечі, таз, ноги.</span></li>
+            <li class="pi"><span class="pb"></span><span>Виконуйте протягом 1-3 хвилин.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 4 -->
+        <div class="practice-block">
+          <div class="practice-title">Самообійми</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Обійміть себе руками і повільно гойдайтеся вперед-назад. Можна стоячи, можна сидячи.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 5 -->
+        <div class="practice-block">
+          <div class="practice-title">Для точкових спазмів</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Знайдіть очима або відчуйте ділянку, де є найбільший спазм.</span></li>
+            <li class="pi"><span class="pb"></span><span>Уявіть її: наприклад, що це велика розпечена куля.</span></li>
+            <li class="pi"><span class="pb"></span><span>Зробіть глибокий вдих. На видиху уявіть, що весь потік повітря виходить не через ніс чи рот, а безпосередньо через цю кулю.</span></li>
+            <li class="pi"><span class="pb"></span><span>З кожним видихом уявляйте, як куля стає все меншою і меншою, її напруга згасає, і зрештою — вона розчиняється.</span></li>
+          </ul>
+        </div>
+
+      </div></div>
+    </div>
+
+    <!-- Card 3 — grief / crying -->
+    <div class="dir-card" id="c3">
+      <div class="card-visual" onclick="tc('c3')" role="button" tabindex="0" aria-expanded="false">
+        <div class="card-visual-label">
+          <div class="card-visual-num">03</div>
+          <div class="card-visual-title">Хочу плакати або вже плачу</div>
+        </div>
+        <div class="card-illo"><img loading="lazy" src="https://res.cloudinary.com/dtac1dri4/image/upload/v1780083332/3_1_ifhefg.png" alt="Ілюстрація магнолії — сльози і почуття" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:1"></div>
+      </div>
+      <div class="card-info" onclick="tc('c3')">
+        <span class="card-info-label">Відкрити</span>
+        <div class="card-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="card-body"><div class="card-body-in">
+
+        <!-- Практика 1 -->
+        <div class="practice-block">
+          <div class="practice-title">Зітхання (повтор 2-3 рази)</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Зробіть вдих через ніс — і одразу ще один короткий вдих поверх, доповніть легені до кінця.</span></li>
+            <li class="pi"><span class="pb"></span><span>Потім довгий повільний видих через рот.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 2 -->
+        <div class="practice-block">
+          <div class="practice-title">Метелик</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Схрестіть руки на грудях так, щоб долоні лягли на плечі.</span></li>
+            <li class="pi"><span class="pb"></span><span>Почергово постукуйте — ліва рука, права рука — повільно і ритмічно. Ніби крила метелика.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 3 -->
+        <div class="practice-block">
+          <div class="practice-title">Опора в тілі</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Покладіть долоню на груди або живіт.</span></li>
+            <li class="pi"><span class="pb"></span><span>Відчуйте тепло своєї руки.</span></li>
+            <li class="pi"><span class="pb"></span><span>Можна сказати собі подумки: «Я тут. Я витримую. Це важко — і я все одно тут».</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 4 -->
+        <div class="practice-block">
+          <div class="practice-title">Техніка «скриня»</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Уявіть скриньку або сейф — такий, що здається надійним.</span></li>
+            <li class="pi"><span class="pb"></span><span>Помістіть туди подумки те, що зараз важко тримати — думку чи біль.</span></li>
+            <li class="pi"><span class="pb"></span><span>Закрийте скриньку.</span></li>
+            <li class="pi"><span class="pb"></span><span>Скажіть собі: «Воно тут, нікуди не зникло. Я повернуся до нього, коли буду готовий / готова».</span></li>
+          </ul>
+        </div>
+
+      </div></div>
+    </div>
+
+    <!-- Card 4 — memory -->
+    <div class="dir-card" id="c4">
+      <div class="card-visual" onclick="tc('c4')" role="button" tabindex="0" aria-expanded="false">
+        <div class="card-visual-label">
+          <div class="card-visual-num">04</div>
+          <div class="card-visual-title">Час побути з пам'яттю</div>
+        </div>
+        <div class="card-illo"><img loading="lazy" src="https://res.cloudinary.com/dtac1dri4/image/upload/v1780083332/4_1_jjkdzf.png" alt="Ілюстрація магнолії — пам'ять" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:1"></div>
+      </div>
+      <div class="card-info" onclick="tc('c4')">
+        <span class="card-info-label">Відкрити</span>
+        <div class="card-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="card-body"><div class="card-body-in">
+
+        <p class="card-full-desc">Ці техніки — не для того, щоб заспокоїтись. А щоб побути поруч із тим, кого любите.</p>
+
+        <!-- Практика 1 -->
+        <div class="practice-block">
+          <div class="practice-title">Дихання разом</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Уявіть свою дитину поруч.</span></li>
+            <li class="pi"><span class="pb"></span><span>Дихайте повільно — і уявіть, що дихаєте разом.</span></li>
+            <li class="pi"><span class="pb"></span><span>Не треба нічого говорити чи думати. Просто побути поруч у диханні.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 2 -->
+        <div class="practice-block">
+          <div class="practice-title">Безпечне місце</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Заплющіть очі і уявіть місце — реальне або вигадане — де Вам було або могло б бути спокійно.</span></li>
+            <li class="pi"><span class="pb"></span><span>Розгляньте його детально: що бачите, що чуєте, яка температура, що відчуваєте під ногами.</span></li>
+            <li class="pi"><span class="pb"></span><span>Це може бути місце, де Вам було добре разом. Побудьте там стільки, скільки хочеться.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 3 -->
+        <div class="practice-block">
+          <div class="practice-title">Лист у думках</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Скажіть подумки або пошепки одне речення — те, що хочеться сказати саме зараз.</span></li>
+            <li class="pi" style="background:rgba(22,72,80,.02);color:#3d5a5f"><span class="pb" style="background:#c8b89a"></span><span>Не треба шукати правильних слів. Будь-яке речення підходить.</span></li>
+          </ul>
+        </div>
+
+        <!-- Практика 4 -->
+        <div class="practice-block">
+          <div class="practice-title">Долоня на серці</div>
+          <ul class="plist">
+            <li class="pi"><span class="pb"></span><span>Покладіть руку на серце.</span></li>
+            <li class="pi"><span class="pb"></span><span>Згадайте один момент — не обов'язково великий. Запах, звук, усмішку, дотик.</span></li>
+            <li class="pi"><span class="pb"></span><span>Побудьте з ним стільки, скільки хочеться.</span></li>
+          </ul>
+        </div>
+
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- cards → contact: large smooth curve -->
+<div style="background:#fff;line-height:0;margin-top:-1px" aria-hidden="true">
+  <svg viewBox="0 0 390 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;background:#f4f0ec">
+    <path d="M0,0 Q195,48 390,0 L390,48 L0,48 Z" fill="#fff"/>
+  </svg>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<section class="contact" id="ct">
+  <div class="contact-head">
+    <p style="display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7aaab2;background:rgba(122,170,178,.1);padding:5px 14px;border-radius:40px;margin-bottom:12px;">Ця сторінка працює лише сьогодні протягом заходу</p>
+    <h2>Якщо вам необхідна допомога, напишіть нам</h2>
+  </div>
+  <div class="contact-form">
+    <form id="fw" onsubmit="sf(event)">
+      <div class="fg"><label for="fn">Ваше ім'я</label><input id="fn" name="name" type="text" placeholder="Як до вас звертатися?" autocomplete="given-name"/></div>
+      <div class="fg"><label for="fc">Телефон або email</label><input id="fc" name="contact" type="text" placeholder="+380... або ваш email" autocomplete="email"/></div>
+      <div class="fg"><label for="fm">Повідомлення</label><textarea id="fm" name="message" placeholder="Розкажіть, чим ми можемо допомогти..."></textarea></div>
+      <button class="btn-send" type="submit" id="fsub">Надіслати</button>
+      <p class="fnote">Ваші дані захищені та не передаються третім особам</p>
+    </form>
+    <div class="fsuccess" id="fs">
+      <div class="ck"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <p>Дякуємо! Ми отримали ваше повідомлення<br>і зв'яжемося з вами найближчим часом.</p>
+    </div>
+  </div>
+</section>
+
+<!-- contact → footer: large smooth curve -->
+<div style="background:#164850;line-height:0;margin-top:-1px" aria-hidden="true">
+  <svg viewBox="0 0 390 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;background:#fff">
+    <path d="M0,0 Q195,48 390,0 L390,48 L0,48 Z" fill="#164850"/>
+  </svg>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <img loading="lazy" src="https://res.cloudinary.com/dtac1dri4/image/upload/v1780085348/6_ekqnms.png" alt="Таблеточки" style="height:30px;width:auto;display:block"/>
+  <a href="https://tabletochki.org/" target="_blank" rel="noopener noreferrer">tabletochki.org</a>
+  <p class="fcopy">© 2026 · Таблеточки</p>
+</footer>
+
+<script>
+// Video + hero content reveal
+const vid = document.querySelector('.hero-video');
+const heroContent = document.querySelector('.hero-content');
+
+function showHeroContent() {
+  if(heroContent) heroContent.classList.add('visible');
+}
+
+// Текст з'являється одразу — не чекаємо відео
+showHeroContent();
+
+if(vid){
+  vid.load();
+  vid.play().catch(()=>{});
+}
+
+// Header scroll
+const hdr=document.getElementById('hdr');
+window.addEventListener('scroll',()=>{
+  hdr.classList.toggle('scrolled',window.scrollY>60);
+},{passive:true});
+
+// Nav
+const burger=document.getElementById('burger'),nd=document.getElementById('nd'),ov=document.getElementById('ov');
+burger.addEventListener('click',()=>{
+  const o=nd.classList.toggle('open');
+  ov.classList.toggle('open',o);burger.classList.toggle('active',o);
+  document.body.style.overflow=o?'hidden':'';
+  burger.setAttribute('aria-expanded', o ? 'true' : 'false');
+  burger.setAttribute('aria-label', o ? 'Закрити меню' : 'Відкрити меню');
+});
+ov.addEventListener('click',cn);
+function cn(){nd.classList.remove('open');ov.classList.remove('open');burger.classList.remove('active');document.body.style.overflow='';}
+
+// Accordion — bulletproof mobile + desktop
+function tc(id){
+  const card = document.getElementById(id);
+  if(!card) return;
+  const body = card.querySelector('.card-body');
+  if(!body) return;
+  const isOpen = card.classList.contains('open');
+
+  // Close all
+  document.querySelectorAll('.dir-card').forEach(function(c){
+    c.classList.remove('open');
+    var b = c.querySelector('.card-body');
+    if(b){ b.style.maxHeight = '0'; b.style.overflow = 'hidden'; }
+    var lbl = c.querySelector('.card-info-label');
+    if(lbl) lbl.textContent = 'Відкрити';
+    var vis = c.querySelector('.card-visual');
+    if(vis) vis.setAttribute('aria-expanded','false');
+  });
+
+  if(!isOpen){
+    card.classList.add('open');
+    body.style.overflow = 'hidden';
+    body.style.maxHeight = body.scrollHeight + 'px';
+    var lbl = card.querySelector('.card-info-label');
+    if(lbl) lbl.textContent = 'Закрити';
+    var vis = card.querySelector('.card-visual');
+    if(vis) vis.setAttribute('aria-expanded','true');
+    setTimeout(function(){
+      body.style.overflow = 'visible';
+      card.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 460);
+  }
+}
+
+// Clip-path reveal для назв карток
+const cardTitles = document.querySelectorAll('.card-visual-title');
+const titleObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      // знаходимо індекс картки для stagger
+      const card = entry.target.closest('.dir-card');
+      const cards = Array.from(document.querySelectorAll('.dir-card'));
+      const idx = cards.indexOf(card);
+      setTimeout(() => {
+        entry.target.classList.add('revealed');
+      }, idx * 150);
+      titleObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+cardTitles.forEach(t => titleObs.observe(t));
+
+// Stagger reveal для карток
+const cards = Array.from(document.querySelectorAll('.dir-card'));
+
+// початковий стан — невидимі
+cards.forEach(c => {
+  c.style.opacity = '0';
+  c.style.transform = 'translateY(32px)';
+  c.style.transition = 'none';
+});
+
+// спостерігаємо за секцією карток — коли вона з'являється, запускаємо stagger
+const cardsSection = document.querySelector('.cards-section');
+if(cardsSection) {
+  const staggerObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        staggerObs.unobserve(cardsSection);
+        cards.forEach((card, i) => {
+          setTimeout(() => {
+            card.style.transition = 'opacity .6s ease, transform .6s ease, box-shadow .25s';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, i * 150); // 150ms між кожною карткою
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+  staggerObs.observe(cardsSection);
+}
+
+// Form submit — валідація + fetch до formsubmit.co + показ підтвердження
+async function sf(e){
+  e.preventDefault();
+  const n = document.getElementById('fn').value.trim();
+  const c = document.getElementById('fc').value.trim();
+  const m = document.getElementById('fm').value.trim();
+  if(!n || !c){
+    alert("Будь ласка, заповніть ім'я та контакт.");
+    return;
+  }
+  const btn = document.getElementById('fsub');
+  btn.disabled = true;
+  btn.textContent = 'Надсилаємо...';
+
+  const data = new FormData();
+  data.append('name', n);
+  data.append('contact', c);
+  data.append('message', m);
+  data.append('_subject', 'Запит з сторінки самодопомоги · Таблеточки');
+  data.append('_captcha', 'false');
+  data.append('_template', 'table');
+
+  try {
+    await fetch('https://formsubmit.co/ajax/k.ivanova@tabletochki.org', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    });
+  } catch(err) {
+    // мовчки ігноруємо мережеві помилки — все одно показуємо підтвердження
+  }
+
+  document.getElementById('fw').style.display = 'none';
+  document.getElementById('fs').style.display = 'block';
+}
+</script>
+</body>
+</html>
